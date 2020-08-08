@@ -12,11 +12,11 @@ public interface Command extends CommandExecutor {
 
     void setUsageMessage();
 
-    Set<me.lynx.libs.command.SubCommand> getAllSubCommands();
+    Set<SubCommand> getAllSubCommands();
 
-    me.lynx.libs.command.SubCommand getSubCommand();
+    SubCommand getSubCommand();
 
-    void addSubCommand(me.lynx.libs.command.SubCommand subCommand);
+    void addSubCommand(SubCommand subCommand);
 
     String getUsageMessage();
 
