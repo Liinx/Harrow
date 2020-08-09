@@ -1,5 +1,5 @@
-# LynxLibs
-A library of useful things that i use for my spigot plugins.
+# Iktinos
 
-### Warning: Still in very early stages, it may or may not work.
-Classes and packages may be renamed as well as the project name itself.
+Library containing tools that can be used to simplyfy and increse the speed at which you make plugins for Spigot Minecraft servers.
+
+**Warning: Still in very early stages, it may or may not work.**
