@@ -1,4 +1,4 @@
-package me.lynx.libs.command;
+package me.lynx.iktinos.command;
 
 public interface SubCommand extends Command {
 

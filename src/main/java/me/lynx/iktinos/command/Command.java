@@ -1,4 +1,4 @@
-package me.lynx.libs.command;
+package me.lynx.iktinos.command;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

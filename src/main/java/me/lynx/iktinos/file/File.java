@@ -1,4 +1,4 @@
-package me.lynx.libs.file;
+package me.lynx.iktinos.file;
 
 public interface File {
 

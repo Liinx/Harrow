@@ -1,6 +1,6 @@
-package me.lynx.libs.file;
+package me.lynx.iktinos.file;
 
-import me.lynx.libs.file.exception.ResourceFileNotFoundException;
+import me.lynx.iktinos.file.exception.ResourceFileNotFoundException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-public class TXTFile implements me.lynx.libs.file.File {
+public class TXTFile implements me.lynx.iktinos.file.File {
 
     private String name;
     private File file;

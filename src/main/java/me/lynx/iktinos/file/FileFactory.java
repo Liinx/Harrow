@@ -1,4 +1,4 @@
-package me.lynx.libs.file;
+package me.lynx.iktinos.file;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

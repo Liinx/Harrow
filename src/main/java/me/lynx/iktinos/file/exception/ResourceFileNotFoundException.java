@@ -1,4 +1,4 @@
-package me.lynx.libs.file.exception;
+package me.lynx.iktinos.file.exception;
 
 public class ResourceFileNotFoundException extends Exception {
 
