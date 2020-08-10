@@ -4,15 +4,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class FileFactory {
 
-    private JavaPlugin owningPlugin;
+    private JavaPlugin plugin;
 
     /**
      * Creates file factory and binds
      * it to the provided plugin.
-     * @param owningPlugin Plugin class
+     * @param plugin Plugin class
      */
-    public FileFactory(JavaPlugin owningPlugin) {
-        this.owningPlugin = owningPlugin;
+    public FileFactory(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
 
     /**
@@ -26,9 +26,9 @@ public class FileFactory {
      */
     public File newFile(FileType type, String name, boolean copyFromResource) {
         if (type == FileType.YAML) {
-            return new YAMLFile(owningPlugin, name, copyFromResource);
+            return new YAMLFile(plugin, name, copyFromResource);
         } else if (type == FileType.TXT) {
-            return new TXTFile(owningPlugin, name, copyFromResource);
+            return new TXTFile(plugin, name, copyFromResource);
         }
 
         return null;
