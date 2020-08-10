@@ -1,6 +1,6 @@
-package me.lynx.iktinos.file;
+package com.github.liinx.file;
 
-import me.lynx.iktinos.file.exception.ResourceFileNotFoundException;
+import com.github.liinx.file.exception.ResourceFileNotFoundException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-public class YAMLFile implements me.lynx.iktinos.file.File {
+public class YAMLFile implements com.github.liinx.file.File {
 
     private String name;
     private File file;

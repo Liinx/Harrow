@@ -1,4 +1,4 @@
-package me.lynx.iktinos.file.exception;
+package com.github.liinx.file.exception;
 
 public class ResourceFileNotFoundException extends Exception {
 

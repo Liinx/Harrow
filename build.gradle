@@ -4,6 +4,9 @@ plugins {
 
 group 'me.lynx'
 version '1.0.0'
+archivesBaseName = "Harrow"
+group GROUP
+version = VERSION_NAME
 
 repositories {
     mavenCentral()

@@ -1,4 +1,4 @@
-package me.lynx.iktinos.command;
+package com.github.liinx.command;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
