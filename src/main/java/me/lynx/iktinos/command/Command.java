@@ -1,20 +1,20 @@
 package me.lynx.iktinos.command;
 
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 import java.util.Set;
 
 public interface Command extends CommandExecutor {
 
-    void run(CommandSender sender, String[] args);
+
 
     void setUsageMessage();
 
     Set<SubCommand> getAllSubCommands();
 
-    SubCommand getSubCommand();
+    SubCommand getSubCommand(String name);
 
     void addSubCommand(SubCommand subCommand);
 
@@ -23,5 +23,7 @@ public interface Command extends CommandExecutor {
     String getName();
 
     List<String> getAliases();
+
+    JavaPlugin getPlugin();
 
 }

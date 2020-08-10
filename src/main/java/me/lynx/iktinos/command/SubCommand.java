@@ -4,6 +4,4 @@ public interface SubCommand extends Command {
 
     Command getParentCommand();
 
-
-
 }

@@ -2,6 +2,7 @@ package me.lynx.iktinos.command;
 
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -23,10 +24,13 @@ public class CommandService {
         registeredCommands = new HashSet<>();
     }
 
-    public boolean registerCommand(Command command) {
-        boolean doesAlreadyExists = registeredCommands.stream()
-            .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(command.getName()));
-        if (doesAlreadyExists) return false;
+    public boolean registerCommand(@NotNull Command command) {
+        if (registeredCommands.size() > 0) {
+            boolean doesAlreadyExists = registeredCommands.stream()
+                    .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(command.getName()));
+            if (doesAlreadyExists) return false;
+        }
+        command.setUsageMessage();
 
         plugin.getCommand(command.getName()).setExecutor(command);
         plugin.getCommand(command.getName()).setAliases(command.getAliases());
