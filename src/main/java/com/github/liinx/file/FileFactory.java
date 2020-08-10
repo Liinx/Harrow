@@ -34,4 +34,12 @@ public class FileFactory {
         return null;
     }
 
+    /**
+     * Gets the plugin its bound to.
+     * @return the plugin
+     */
+    public JavaPlugin getPlugin() {
+        return plugin;
+    }
+
 }

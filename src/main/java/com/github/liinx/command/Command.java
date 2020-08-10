@@ -1,29 +1,26 @@
 package com.github.liinx.command;
 
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.github.liinx.command.template.IBaseCommand;
+import com.github.liinx.command.template.IParentCommand;
 
-import java.util.List;
-import java.util.Set;
+abstract class Command implements IBaseCommand {
 
-public interface Command extends CommandExecutor {
+    private String name;
 
+    private Command() { }
 
+    protected Command(String name) {
+        this.name = name;
+    }
 
-    void setUsageMessage();
+    @Override
+    public String getName() {
+        return name;
+    }
 
-    Set<SubCommand> getAllSubCommands();
-
-    SubCommand getSubCommand(String name);
-
-    void addSubCommand(SubCommand subCommand);
-
-    String getUsageMessage();
-
-    String getName();
-
-    List<String> getAliases();
-
-    JavaPlugin getPlugin();
+    @Override
+    public boolean isParentCommand() {
+        return this instanceof IParentCommand;
+    }
 
 }

@@ -1,5 +1,8 @@
 package com.github.liinx.command;
 
+import com.github.liinx.command.template.IBaseCommand;
+import com.github.liinx.command.template.IChildCommand;
+import com.github.liinx.command.template.IParentCommand;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +15,7 @@ import java.util.Set;
 public class CommandService {
 
     private JavaPlugin plugin;
-    private Set<Command> registeredCommands;
+    private Set<IParentCommand> registeredCommands;
 
     /**
      * Creates command service and binds
@@ -24,48 +27,83 @@ public class CommandService {
         registeredCommands = new HashSet<>();
     }
 
-    public boolean registerCommand(@NotNull Command command) {
+    /**
+     * Register command on the bukkit so it could be used
+     * by console and players on the server. If the command is
+     * already register it will return false;
+     * @param command instance of command to register
+     * @return true if registration was successful false otherwise
+     */
+    public boolean registerCommand(@NotNull IParentCommand command) {
         if (registeredCommands.size() > 0) {
             boolean doesAlreadyExists = registeredCommands.stream()
                     .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(command.getName()));
             if (doesAlreadyExists) return false;
         }
-        command.setUsageMessage();
 
         plugin.getCommand(command.getName()).setExecutor(command);
         plugin.getCommand(command.getName()).setAliases(command.getAliases());
-
         registeredCommands.add(command);
         return true;
     }
 
-    public boolean registerSubCommand(SubCommand subCommand, Command parentCommand) {
-        boolean doesAlreadyExists = parentCommand.getAllSubCommands().stream()
-                .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(subCommand.getName()));
+    /**
+     * Register a child command on the already existing(registered) command
+     * so it can be used by console and players on the server. If the command is
+     * already register to this parent command it will return false;
+     * @param childCommand instance of child command to register
+     * @param parentCommand instance of parent command it belongs to
+     * @return true if registration was successful false otherwise
+     */
+    public boolean registerChildCommand(IChildCommand childCommand, ParentCommand parentCommand) {
+        boolean doesAlreadyExists = parentCommand.getChildCommands().stream()
+                .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(childCommand.getName()));
         if (doesAlreadyExists) return false;
 
-        parentCommand.addSubCommand(subCommand);
+        parentCommand.addChildCommand(childCommand);
         return true;
     }
 
-    public Set<Command> getAllRegisteredCommands() {
+    /**
+     * Gets all registered parent commands.
+     * @return all registered commands
+     */
+    public Set<IParentCommand> getAllRegisteredCommands() {
         return registeredCommands;
     }
 
-    public Command getRegisteredCommand(String name) {
+    /**
+     * Gets registered command with given name, if it does not
+     * exists returns null.
+     * @param name name of the registered command
+     * @return registered command
+     */
+    public IParentCommand getRegisteredCommand(String name) {
         return registeredCommands.stream()
             .filter(cmd -> cmd.getName().equalsIgnoreCase(name))
             .findFirst()
             .orElseGet(null);
     }
 
+    /**
+     * Attempts to unregistered the parent command and all of its child commands.
+     * @param command command to unregister
+     */
     public void unregisterCommand(Command command) {
         boolean doesAlreadyExists = registeredCommands.stream()
-                .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(command.getName()));
+            .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(command.getName()));
         if (!doesAlreadyExists) return;
 
         unRegisterBukkitCommand(command);
         registeredCommands.remove(command);
+    }
+
+    /**
+     * Gets the plugin its bound to.
+     * @return the plugin
+     */
+    public JavaPlugin getPlugin() {
+        return plugin;
     }
 
     private Object getPrivateField(Object object, String field) throws SecurityException,
@@ -95,4 +133,5 @@ public class CommandService {
             e.printStackTrace();
         }
     }
+
 }
