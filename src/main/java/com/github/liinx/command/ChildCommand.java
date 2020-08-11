@@ -1,26 +1,25 @@
 package com.github.liinx.command;
 
 import com.github.liinx.command.template.IChildCommand;
-import com.github.liinx.command.template.IParentCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ChildCommand extends Command implements IChildCommand {
 
-    private IParentCommand parentCommand;
+    private ParentCommand parentCommand;
 
     /**
      * Creates a new instance of a child command.
      * @param name name of the command
      * @param parentCommand parent command
      */
-    protected ChildCommand(String name, IParentCommand parentCommand) {
+    protected ChildCommand(String name, ParentCommand parentCommand) {
         super(name);
         this.parentCommand = parentCommand;
     }
 
     @Override
-    public IParentCommand getParentCommand() {
+    public ParentCommand getParentCommand() {
         return parentCommand;
     }
 
