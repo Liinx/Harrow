@@ -52,15 +52,14 @@ public class CommandService {
      * so it can be used by console and players on the server. If the command is
      * already register to this parent command it will return false;
      * @param childCommand instance of child command to register
-     * @param parentCommand instance of parent command it belongs to
      * @return true if registration was successful false otherwise
      */
-    public boolean registerChildCommand(IChildCommand childCommand, ParentCommand parentCommand) {
-        boolean doesAlreadyExists = parentCommand.getChildCommands().stream()
+    public boolean registerChildCommand(IChildCommand childCommand) {
+        boolean doesAlreadyExists = childCommand.getParentCommand().getChildCommands().stream()
                 .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(childCommand.getName()));
         if (doesAlreadyExists) return false;
 
-        parentCommand.addChildCommand(childCommand);
+        childCommand.getParentCommand().addChildCommand(childCommand);
         return true;
     }
 

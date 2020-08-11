@@ -13,6 +13,11 @@ public abstract class ParentCommand extends Command implements IParentCommand {
     private Set<IChildCommand> childCommands;
     private JavaPlugin plugin;
 
+    /**
+     * Creates a new instance of a planet command.
+     * @param name name of the command
+     * @param plugin owning plugin
+     */
     public ParentCommand(String name, JavaPlugin plugin) {
         super(name);
         this.plugin = plugin;

@@ -51,7 +51,6 @@ uploadArchives {
             pom.project {
                 name 'Harrow'
                 packaging 'jar'
-                artifactId 'com.github.liinx'
                 description 'Library containing tools that can be used for spigot plugins development.'
                 url 'https://github.com/Liinx/Harrow'
 
