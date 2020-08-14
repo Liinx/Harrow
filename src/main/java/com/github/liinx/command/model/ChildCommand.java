@@ -1,8 +1,6 @@
-package com.github.liinx.command;
+package com.github.liinx.command.model;
 
 import com.github.liinx.command.template.IChildCommand;
-import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class ChildCommand extends Command implements IChildCommand {
 
@@ -21,13 +19,6 @@ public abstract class ChildCommand extends Command implements IChildCommand {
     @Override
     public ParentCommand getParentCommand() {
         return parentCommand;
-    }
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender,
-         org.bukkit.command.@NotNull Command command,
-         @NotNull String label, @NotNull String[] args) {
-        return false;
     }
 
 }

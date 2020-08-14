@@ -1,4 +1,4 @@
-package com.github.liinx.command;
+package com.github.liinx.command.model;
 
 import com.github.liinx.command.template.IBaseCommand;
 import com.github.liinx.command.template.IParentCommand;
@@ -32,5 +32,7 @@ abstract class Command implements IBaseCommand {
     public List<String> getAliases() {
         return aliases;
     }
+
+
 
 }

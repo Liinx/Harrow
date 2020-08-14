@@ -1,10 +1,17 @@
 package com.github.liinx.command.template;
 
-import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public interface IBaseCommand extends CommandExecutor {
+public interface IBaseCommand {
+
+    /**
+     * Trigger the command.
+     * @param sender command sender
+     * @param args command arguments
+     */
+    void run(CommandSender sender, String[] args);
 
     /**
      * Gets the name of the command.

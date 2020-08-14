@@ -1,6 +1,6 @@
 package com.github.liinx.command.template;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import com.github.liinx.HarrowPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
@@ -11,7 +11,7 @@ public interface IParentCommand extends IBaseCommand {
      * Gets the plugin this command belongs to
      * @return owning plugin
      */
-    JavaPlugin getPlugin();
+    HarrowPlugin getPlugin();
 
     /**
      * Gets all the child commands for this command.
@@ -26,5 +26,11 @@ public interface IParentCommand extends IBaseCommand {
      * @return named child command
      */
     IChildCommand getChildCommand(@NotNull String name);
+
+    /**
+     * Checks if the command is registered.
+     * @return true if it is false otherwise
+     */
+    boolean isRegistered();
 
 }
