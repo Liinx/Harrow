@@ -18,6 +18,16 @@ dependencies {
     compileOnly 'org.jetbrains:annotations:15.0'
 }
 
+def dest = projectDir.getParentFile().getAbsolutePath() + "/ParkourMaker/libs/"
+
+jar {
+    doLast {
+        ant.copy file: "${buildDir}/libs/Harrow-1.0.4-SNAPSHOT.jar",
+            todir: "${dest}",
+            overwrite: true
+    }
+}
+
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier = 'sources'
     from sourceSets.main.allSource
