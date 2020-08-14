@@ -1,6 +1,6 @@
 package com.github.liinx.command.template;
 
-import com.github.liinx.HarrowPlugin;
+import com.github.liinx.plugin.HarrowPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;

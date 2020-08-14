@@ -1,6 +1,6 @@
 package com.github.liinx.command.model;
 
-import com.github.liinx.HarrowPlugin;
+import com.github.liinx.plugin.HarrowPlugin;
 import com.github.liinx.command.template.IChildCommand;
 import com.github.liinx.command.template.IParentCommand;
 import org.jetbrains.annotations.NotNull;

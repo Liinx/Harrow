@@ -1,4 +1,4 @@
-package com.github.liinx.command.plugin;
+package com.github.liinx.plugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

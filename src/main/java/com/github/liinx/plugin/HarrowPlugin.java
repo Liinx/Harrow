@@ -1,7 +1,7 @@
-package com.github.liinx;
+package com.github.liinx.plugin;
 
-import com.github.liinx.command.plugin.CallPriority;
-import com.github.liinx.command.plugin.IHarrowPlugin;
+import com.github.liinx.plugin.CallPriority;
+import com.github.liinx.plugin.IHarrowPlugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
