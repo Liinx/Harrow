@@ -10,6 +10,7 @@ Including key features like:
   * Aliases for main commands  
   * Aliases for sub commands  
   * Tab Completion for most if not all aruments  
+  * Command and Sub command registration and unregistration
   * Commands with same name from different plugins handleing  
 
 **Configuration file setup and creation from resource or directly to plugin dir with save feature that saves comments**  
