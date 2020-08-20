@@ -5,6 +5,10 @@ import com.github.liinx.command.Command;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+/**
+ * Represents a container holding all of the instances of
+ * plugins that are using harrow lib on this server.
+ */
 public class HarrowFactory {
 
     private static final Map<String, HarrowPlugin> instances;
@@ -20,8 +24,6 @@ public class HarrowFactory {
         counter++;
 
         String jarName = getJarName(plugin);
-        HarrowLogger.info("jar name in initialize: " + jarName);
-
         instances.put(jarName, plugin);
     }
 
@@ -33,10 +35,7 @@ public class HarrowFactory {
      * @return instnace of harrow plugin
      */
     public static HarrowPlugin getHarrowInstance(final Command cmdClass) {
-        HarrowLogger.info("class name: " + cmdClass.getClass().getName());
         String jarName = getJarName(cmdClass);
-
-        HarrowLogger.info("jar name: " + jarName);
         if (instanceExists(jarName)) {
             return instances.get(jarName);
         }
@@ -44,7 +43,7 @@ public class HarrowFactory {
         return null;
     }
 
-    public static void clear(HarrowPlugin plugin) {
+    protected static void clear(HarrowPlugin plugin) {
         String jarName = getJarName(plugin);
 
         if (!instanceExists(jarName)) return;

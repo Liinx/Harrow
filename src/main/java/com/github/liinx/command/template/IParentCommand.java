@@ -20,10 +20,4 @@ public interface IParentCommand extends IBaseCommand {
      */
     IChildCommand getChildCommand(@NotNull String name);
 
-    /**
-     * Checks if the command is registered.
-     * @return true if it is false otherwise
-     */
-    boolean isRegistered();
-
 }

@@ -8,7 +8,6 @@ import java.util.Set;
 public abstract class ChildCommand extends Command implements IChildCommand {
 
     //private Map<ParentCommand,Boolean> parentCommands;
-    private AbstractCommandService commandService;
 
     //private Set<String> tempQueueForParent;
 
@@ -62,11 +61,6 @@ public abstract class ChildCommand extends Command implements IChildCommand {
         //parentCommands.put(parentCommand, true);
         return true;
     }*/
-
-
-    protected void setCommandService(AbstractCommandService commandService) {
-        this.commandService = commandService;
-    }
 
     private boolean doesChildContainParent(ParentCommand parentCommand) {
        /* Supplier<Stream<Map.Entry<ParentCommand,Boolean>>> supplier =

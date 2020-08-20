@@ -30,7 +30,8 @@ public class HarrowPlugin extends JavaPlugin {
         HarrowFactory.addInstance(instance);
 
 
-        HarrowLogger.warn("Load order for " + instance.getName() + " is " + loadOrder);
+        HarrowLogger.info("Enabling " + instance.getName() + " using Harrow with " + priority.getName()
+            + " priority.");
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.github.liinx.command.AbstractCommandService;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collection;
 import java.util.Set;
 
 public interface IBaseCommand {
@@ -30,10 +31,28 @@ public interface IBaseCommand {
     Set<String> getAliases();
 
     /**
+     * Adds a alias to the command.
+     * @param alias the alias to add
+     */
+    void addAlias(String alias);
+
+    /**
+     * Adds a colection of aliases to the command.
+     * @param aliases collection containing the aliases
+     */
+    void addAlias(Collection<String> aliases);
+
+    /**
      * Checks if this command is a parent command.
      * @return true if its parent command false otherwise.
      */
     boolean isParentCommand();
+
+    /**
+     * Checks if the command is registered.
+     * @return true if it is false otherwise
+     */
+    boolean isRegistered();
 
     /** Gets the instance of a {@link CommandService}.
      * @return the command service instance

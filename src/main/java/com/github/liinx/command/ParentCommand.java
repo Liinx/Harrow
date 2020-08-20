@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 public abstract class ParentCommand extends Command implements IParentCommand {
 
     private Set<IChildCommand> childCommands;
-    private boolean registered;
 
     /**
      * Creates a new instance of a planet command.
@@ -21,7 +20,6 @@ public abstract class ParentCommand extends Command implements IParentCommand {
     public ParentCommand(String name) {
         super(name);
         childCommands = new HashSet<>();
-        registered = false;
     }
 
     @Override
@@ -37,18 +35,13 @@ public abstract class ParentCommand extends Command implements IParentCommand {
         else return null;
     }
 
-    @Override
-    public boolean isRegistered() {
-        return registered;
-    }
-
-    protected void addChildCommand(ChildCommand childCommand) {
+    protected void addChildCommand(IChildCommand childCommand) {
         childCommands.add(childCommand);
     }
 
     protected void prepareExecutor() {
         getPlugin().getCommand(getName()).setExecutor((sender, command, label, args) -> {
-            if (registered) {
+            if (isRegistered()) {
                 run(sender, args);
                 return true;
             } else {
@@ -56,10 +49,6 @@ public abstract class ParentCommand extends Command implements IParentCommand {
                 return false;
             }
         });
-    }
-
-    protected void setRegistered(boolean registered) {
-        this.registered = registered;
     }
 
     @Override

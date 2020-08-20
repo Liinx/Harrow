@@ -51,8 +51,8 @@ public abstract class AbstractCommandService {
             }
         }
 
-        HarrowLogger.info("Using " + getPlugin().getName() + " to register " + command.getName());
-
+        HarrowLogger.info("Using " + getPlugin().getName() + " command service to register "
+                + command.getName() + " command.");
         command.setCommandService(this);
         command.setRegistered(true);
         command.prepareExecutor();

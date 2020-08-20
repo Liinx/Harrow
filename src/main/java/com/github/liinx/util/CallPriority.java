@@ -18,4 +18,8 @@ public enum CallPriority {
         return numValue;
     }
 
+    public String getName() {
+        return name().substring(0,1) + name().substring(1).toLowerCase();
+    }
+
 }
