@@ -12,14 +12,15 @@ public class HarrowLogger {
 
     static {
         NAME = ChatColor.DARK_GRAY + "[" + ChatColor.BLUE + "HARROW";
-        PREFIX = "-%ph%" + ChatColor.DARK_GRAY + "]" + " ";
+        PREFIX = "-%level%%op%" + ChatColor.DARK_GRAY + "]" + " ";
         SENDER = Bukkit.getConsoleSender();
     }
 
     private HarrowLogger() {}
 
-    private static String replacePlaceholder(String replaceWith) {
-        return PREFIX.replaceAll("%ph%", replaceWith);
+    private static String replacePlaceholder(String replaceWith, String pluginName) {
+        return PREFIX.replaceAll("%level%", replaceWith)
+                .replaceAll("%op%", pluginName == null ? "" : " " + pluginName);
     }
 
     /**
@@ -27,7 +28,7 @@ public class HarrowLogger {
      * @param message message to log
      */
     public static void info(String message) {
-        SENDER.sendMessage(NAME + replacePlaceholder("INFO") + ChatColor.WHITE + message);
+        SENDER.sendMessage(NAME + replacePlaceholder("INFO", null) + ChatColor.WHITE + message);
     }
 
     /**
@@ -35,7 +36,7 @@ public class HarrowLogger {
      * @param message message to log
      */
     public static void warn(String message) {
-        SENDER.sendMessage(NAME + replacePlaceholder("WARNING") + ChatColor.RED + message);
+        SENDER.sendMessage(NAME + replacePlaceholder("WARNING", null) + ChatColor.RED + message);
     }
 
     /**
@@ -43,7 +44,34 @@ public class HarrowLogger {
      * @param message message to log
      */
     public static void severe(String message) {
-        SENDER.sendMessage(NAME + replacePlaceholder("SEVERE") + ChatColor.DARK_RED + message);
+        SENDER.sendMessage(NAME + replacePlaceholder("SEVERE", null) + ChatColor.DARK_RED + message);
+    }
+
+    /**
+     * Log message to console with info level.
+     * @param message message to log
+     * @param pluginName name of the plugin
+     */
+    public static void info(String message, String pluginName) {
+        SENDER.sendMessage(NAME + replacePlaceholder("INFO", pluginName) + ChatColor.WHITE + message);
+    }
+
+    /**
+     * Log message to console with warning level.
+     * @param message message to log
+     * @param pluginName name of the plugin
+     */
+    public static void warn(String message, String pluginName) {
+        SENDER.sendMessage(NAME + replacePlaceholder("WARNING", pluginName) + ChatColor.RED + message);
+    }
+
+    /**
+     * Log message to console with severe level.
+     * @param message message to log
+     * @param pluginName name of the plugin
+     */
+    public static void severe(String message, String pluginName) {
+        SENDER.sendMessage(NAME + replacePlaceholder("SEVERE", pluginName) + ChatColor.DARK_RED + message);
     }
 
 }
