@@ -1,4 +1,4 @@
-package com.github.liinx.file.exception;
+package com.github.liinx.util.exception;
 
 public class ResourceFileNotFoundException extends Exception {
 

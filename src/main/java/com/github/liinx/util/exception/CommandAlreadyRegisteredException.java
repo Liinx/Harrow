@@ -1,4 +1,4 @@
-package com.github.liinx.command.exception;
+package com.github.liinx.util.exception;
 
 public class CommandAlreadyRegisteredException extends Exception {
 

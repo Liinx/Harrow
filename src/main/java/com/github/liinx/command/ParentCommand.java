@@ -1,6 +1,5 @@
-package com.github.liinx.command.model;
+package com.github.liinx.command;
 
-import com.github.liinx.plugin.HarrowPlugin;
 import com.github.liinx.command.template.IChildCommand;
 import com.github.liinx.command.template.IParentCommand;
 import org.jetbrains.annotations.NotNull;
@@ -13,24 +12,16 @@ import java.util.stream.Stream;
 public abstract class ParentCommand extends Command implements IParentCommand {
 
     private Set<IChildCommand> childCommands;
-    private HarrowPlugin plugin;
     private boolean registered;
 
     /**
      * Creates a new instance of a planet command.
      * @param name name of the command
-     * @param plugin owning plugin
      */
-    public ParentCommand(String name, HarrowPlugin plugin) {
+    public ParentCommand(String name) {
         super(name);
-        this.plugin = plugin;
         childCommands = new HashSet<>();
         registered = false;
-    }
-
-    @Override
-    public HarrowPlugin getPlugin() {
-        return plugin;
     }
 
     @Override
@@ -40,9 +31,9 @@ public abstract class ParentCommand extends Command implements IParentCommand {
 
     @Override
     public IChildCommand getChildCommand(@NotNull String name) {
-        Supplier<Stream<IChildCommand>> suplier = () -> childCommands.stream()
+        Supplier<Stream<IChildCommand>> supplier = () -> childCommands.stream()
             .filter(cmd -> cmd.getName().equalsIgnoreCase(name));
-        if (suplier.get().count() > 0) return suplier.get().findFirst().orElseGet(null);
+        if (supplier.get().count() > 0) return supplier.get().findFirst().orElseGet(null);
         else return null;
     }
 
@@ -51,12 +42,32 @@ public abstract class ParentCommand extends Command implements IParentCommand {
         return registered;
     }
 
+    protected void addChildCommand(ChildCommand childCommand) {
+        childCommands.add(childCommand);
+    }
+
+    protected void prepareExecutor() {
+        getPlugin().getCommand(getName()).setExecutor((sender, command, label, args) -> {
+            if (registered) {
+                run(sender, args);
+                return true;
+            } else {
+                sender.sendMessage("Unknown command. Type \"/help\" for help.");
+                return false;
+            }
+        });
+    }
+
     protected void setRegistered(boolean registered) {
         this.registered = registered;
     }
 
-    public void addChildCommand(IChildCommand childCommand) {
-        childCommands.add(childCommand);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParentCommand)) return false;
+        ParentCommand that = (ParentCommand) o;
+        return this.getName().equalsIgnoreCase(that.getName());
     }
 
 }

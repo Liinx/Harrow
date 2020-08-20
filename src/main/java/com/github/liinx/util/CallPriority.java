@@ -1,4 +1,4 @@
-package com.github.liinx.plugin;
+package com.github.liinx.util;
 
 public enum CallPriority {
 

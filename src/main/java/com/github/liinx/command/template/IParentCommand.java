@@ -1,17 +1,10 @@
 package com.github.liinx.command.template;
 
-import com.github.liinx.plugin.HarrowPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
 public interface IParentCommand extends IBaseCommand {
-
-    /**
-     * Gets the plugin this command belongs to
-     * @return owning plugin
-     */
-    HarrowPlugin getPlugin();
 
     /**
      * Gets all the child commands for this command.

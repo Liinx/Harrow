@@ -1,17 +1,17 @@
 package com.github.liinx.file;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import com.github.liinx.HarrowPlugin;
 
 public class FileFactory {
 
-    private JavaPlugin plugin;
+    private HarrowPlugin plugin;
 
     /**
      * Creates file factory and binds
      * it to the provided plugin.
      * @param plugin Plugin class
      */
-    public FileFactory(JavaPlugin plugin) {
+    public FileFactory(HarrowPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -38,7 +38,7 @@ public class FileFactory {
      * Gets the plugin its bound to.
      * @return the plugin
      */
-    public JavaPlugin getPlugin() {
+    public HarrowPlugin getPlugin() {
         return plugin;
     }
 

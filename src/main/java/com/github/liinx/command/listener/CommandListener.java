@@ -1,14 +1,13 @@
 package com.github.liinx.command.listener;
 
-import com.github.liinx.command.model.CommandService;
-import com.github.liinx.command.model.ParentCommand;
+import com.github.liinx.command.AbstractCommandService;
+import com.github.liinx.command.ParentCommand;
 import com.github.liinx.command.template.IChildCommand;
 import com.github.liinx.util.Utils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
 import java.util.function.Supplier;
@@ -16,9 +15,9 @@ import java.util.stream.Stream;
 
 public class CommandListener implements Listener {
 
-    private CommandService commandService;
+    private final AbstractCommandService commandService;
 
-    public CommandListener(CommandService commandService) {
+    public CommandListener(AbstractCommandService commandService) {
         this.commandService = commandService;
         commandService.getPlugin()
             .getServer()
@@ -27,7 +26,7 @@ public class CommandListener implements Listener {
     }
     
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
-    private void preProcessCommand(PlayerCommandPreprocessEvent e) {
+    private void aliasForCommandUsed(PlayerCommandPreprocessEvent e) {
         String noSlash = e.getMessage().substring(1);
         String[] split = noSlash.split(" ");
         String command = split[0];
@@ -37,85 +36,51 @@ public class CommandListener implements Listener {
             .filter(cmd -> Utils.containsIgnoreCase(command, cmd.getAliases()));
         if (stream.get().count() < 1) return;
 
-        ParentCommand pcm = stream.get().findFirst().orElseGet(null);
-        if (pcm == null) return;
-
-        split[0] = pcm.getName();
+        ParentCommand parentCommand = stream.get().findFirst().orElseGet(null);
+        if (parentCommand == null) return;
+        split[0] = parentCommand.getName();
 
         if (split.length > 1 && !split[1].equalsIgnoreCase("")) {
-            String child = noSlash.split(" ")[1];
+            String child = split[1];
 
-            IChildCommand ccm = pcm.getChildCommands().stream()
+            IChildCommand childCommand = parentCommand.getChildCommands().stream()
                     .filter(cmd -> Utils.containsIgnoreCase(child, cmd.getAliases()))
                     .findFirst().orElseGet(null);
-            if (ccm == null) return;
-
-            split[1] = ccm.getName();
+            if (childCommand == null) return;
+            split[1] = childCommand.getName();
         }
 
-        e.setMessage(Utils.processCommand(split));
+        e.setMessage(Utils.processCommand(split, true));
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
-    private void unregisteredCommand(PlayerCommandPreprocessEvent e) {
-        String noSlash = e.getMessage().substring(1);
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
+    private void aliasForCommandUsed(ServerCommandEvent e) {
+        String noSlash = e.getCommand();
         String[] split = noSlash.split(" ");
         String command = split[0];
 
-        boolean foundCommand = commandService.getCommands().stream()
-                .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(command));
-        if (!foundCommand) return;
+        Supplier<Stream<ParentCommand>> stream = () -> commandService.getCommands().stream()
+                .filter(ParentCommand::isRegistered)
+                .filter(cmd -> Utils.containsIgnoreCase(command, cmd.getAliases()));
+        if (stream.get().count() < 1) return;
 
+        ParentCommand parentCommand = stream.get().findFirst().orElseGet(null);
+        if (parentCommand == null) return;
 
-        ParentCommand pcm = commandService.getCommands().stream()
-                .filter(cmd -> cmd.getName().equalsIgnoreCase(command))
-                .findFirst().orElseGet(null);
-        if (pcm == null) return;
+        split[0] = parentCommand.getName();
 
+        if (split.length > 1 && !split[1].equalsIgnoreCase("")) {
+            String child = split[1];
 
-
-        if (!pcm.isRegistered()) e.setCancelled(true);
-
-       /* split[0] = pcm.getName();
-
-        if (split[1] != null && !split[1].equalsIgnoreCase("")) {
-            String child = noSlash.split(" ")[1];
-            Set<IChildCommand> childCommands = pcm.getChildCommands();
-
-            IChildCommand ccm = childCommands.stream()
-                    .filter(cmd -> containsIgnoreCase(child, cmd.getAliases()))
+            IChildCommand childCommand = parentCommand.getChildCommands().stream()
+                    .filter(cmd -> Utils.containsIgnoreCase(child, cmd.getAliases()))
                     .findFirst().orElseGet(null);
-            if (ccm == null) return;
+            if (childCommand == null) return;
 
-            split[1] = ccm.getName();
+            split[1] = childCommand.getName();
         }
 
-        e.setMessage(processCommand(split));*/
+        e.setCommand(Utils.processCommand(split, false));
     }
-
-
-
-
-
-
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
-    private void listComman(PlayerCommandSendEvent e) {
-        //list of commands get
-
-
-    }
-
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
-    private void onConsole(ServerCommandEvent e) {
-
-
-
-    }
-
-
-
-
-
-
 
 }

@@ -1,6 +1,6 @@
 package com.github.liinx.file;
 
-import com.github.liinx.file.exception.ResourceFileNotFoundException;
+import com.github.liinx.util.exception.ResourceFileNotFoundException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,7 +17,7 @@ public class YAMLFile implements com.github.liinx.file.File {
 
     private YAMLFile() {}
 
-    YAMLFile(JavaPlugin plugin, String name, boolean copyFromResource) {
+    protected YAMLFile(JavaPlugin plugin, String name, boolean copyFromResource) {
         if (!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdir();
         this.name = name;
 

@@ -8,10 +8,10 @@ public class Utils {
         return collection.stream().anyMatch(val -> val.equalsIgnoreCase(word));
     }
 
-    public static String processCommand(String[] rawCommand) {
+    public static String processCommand(String[] rawCommand, boolean addSlash) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("/");
+        if (addSlash) sb.append("/");
         for (int i = 0; i < rawCommand.length; i++) {
             sb.append(rawCommand[i]);
             if (i != (rawCommand.length - 1)) sb.append(" ");
