@@ -1,9 +1,9 @@
-package com.github.liinx.command;
+package me.lynx.harrow.command;
 
-import com.github.liinx.HarrowPlugin;
-import com.github.liinx.command.template.IBaseCommand;
-import com.github.liinx.command.template.IParentCommand;
-import com.github.liinx.HarrowFactory;
+import me.lynx.harrow.HarrowPlugin;
+import me.lynx.harrow.command.template.IBaseCommand;
+import me.lynx.harrow.command.template.IParentCommand;
+import me.lynx.harrow.HarrowFactory;
 
 import java.util.*;
 

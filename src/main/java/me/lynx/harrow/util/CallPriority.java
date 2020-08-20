@@ -1,4 +1,4 @@
-package com.github.liinx.util;
+package me.lynx.harrow.util;
 
 public enum CallPriority {
 

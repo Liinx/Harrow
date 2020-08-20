@@ -1,8 +1,8 @@
-package com.github.liinx.command.template;
+package me.lynx.harrow.command.template;
 
-import com.github.liinx.CommandService;
-import com.github.liinx.HarrowPlugin;
-import com.github.liinx.command.AbstractCommandService;
+import me.lynx.harrow.CommandService;
+import me.lynx.harrow.HarrowPlugin;
+import me.lynx.harrow.command.AbstractCommandService;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 

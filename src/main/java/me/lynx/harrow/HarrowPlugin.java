@@ -1,6 +1,6 @@
-package com.github.liinx;
+package me.lynx.harrow;
 
-import com.github.liinx.util.CallPriority;
+import me.lynx.harrow.util.CallPriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Comparator;

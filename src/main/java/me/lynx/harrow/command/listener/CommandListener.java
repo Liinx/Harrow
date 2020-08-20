@@ -1,9 +1,9 @@
-package com.github.liinx.command.listener;
+package me.lynx.harrow.command.listener;
 
-import com.github.liinx.command.AbstractCommandService;
-import com.github.liinx.command.ParentCommand;
-import com.github.liinx.command.template.IChildCommand;
-import com.github.liinx.util.Utils;
+import me.lynx.harrow.command.AbstractCommandService;
+import me.lynx.harrow.command.ParentCommand;
+import me.lynx.harrow.command.template.IChildCommand;
+import me.lynx.harrow.util.Utils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

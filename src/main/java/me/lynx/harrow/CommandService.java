@@ -1,7 +1,11 @@
-package com.github.liinx;
+package me.lynx.harrow;
 
-import com.github.liinx.command.AbstractCommandService;
+import me.lynx.harrow.command.AbstractCommandService;
 
+/**
+ * Represents a command service for handling everything that has to do with
+ * commands.
+ */
 public class CommandService extends AbstractCommandService {
 
     /**

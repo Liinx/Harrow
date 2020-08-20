@@ -1,4 +1,4 @@
-package com.github.liinx.file;
+package me.lynx.harrow.file;
 
 public enum FileType {
 

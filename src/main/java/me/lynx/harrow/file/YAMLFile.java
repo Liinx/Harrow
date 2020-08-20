@@ -1,6 +1,7 @@
-package com.github.liinx.file;
+package me.lynx.harrow.file;
 
-import com.github.liinx.util.exception.ResourceFileNotFoundException;
+import me.lynx.harrow.util.exception.ResourceFileNotFoundException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -8,22 +9,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-public class TXTFile implements com.github.liinx.file.File {
+public class YAMLFile implements me.lynx.harrow.file.File {
 
     private String name;
     private File file;
+    private YamlConfiguration yaml;
 
-    private TXTFile() {}
+    private YAMLFile() {}
 
-    protected TXTFile(JavaPlugin plugin, String name, boolean copyFromResource) {
+    protected YAMLFile(JavaPlugin plugin, String name, boolean copyFromResource) {
         if (!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdir();
         this.name = name;
 
-        file = new File(plugin.getDataFolder(), name + ".txt");
+        file = new File(plugin.getDataFolder(), name + ".yaml");
         if (!file.exists()) {
             try {
                 if (copyFromResource) {
-                    InputStream inputStream = plugin.getResource(name + ".txt");
+                    InputStream inputStream = plugin.getResource(name + ".yaml");
                     if (inputStream == null) throw new ResourceFileNotFoundException("Could not find " + name
                             + ".yaml in the resources directory!");
 
@@ -35,6 +37,7 @@ public class TXTFile implements com.github.liinx.file.File {
                 e.printStackTrace();
             }
         }
+        yaml = YamlConfiguration.loadConfiguration(file);
     }
 
     @Override
@@ -45,6 +48,22 @@ public class TXTFile implements com.github.liinx.file.File {
     @Override
     public File getFile() {
         return file;
+    }
+
+    public YamlConfiguration getYaml() {
+        return yaml;
+    }
+
+    public void reload() {
+        yaml = YamlConfiguration.loadConfiguration(file);
+    }
+
+    public void save() {
+        try {
+            yaml.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

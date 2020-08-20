@@ -1,7 +1,7 @@
-package com.github.liinx.command;
+package me.lynx.harrow.command;
 
-import com.github.liinx.command.template.IChildCommand;
-import com.github.liinx.command.template.IParentCommand;
+import me.lynx.harrow.command.template.IChildCommand;
+import me.lynx.harrow.command.template.IParentCommand;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public abstract class ParentCommand extends Command implements IParentCommand {
 
-    private Set<IChildCommand> childCommands;
+    private final Set<IChildCommand> childCommands;
 
     /**
      * Creates a new instance of a planet command.

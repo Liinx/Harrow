@@ -1,16 +1,13 @@
-package com.github.liinx.command;
+package me.lynx.harrow.command;
 
-import com.github.liinx.HarrowLogger;
-import com.github.liinx.HarrowPlugin;
-import com.github.liinx.util.exception.ChildCommandAlreadyRegisteredException;
-import com.github.liinx.util.exception.CommandAlreadyRegisteredException;
-import com.github.liinx.command.listener.CommandListener;
-import com.github.liinx.command.template.IChildCommand;
+import me.lynx.harrow.HarrowLogger;
+import me.lynx.harrow.HarrowPlugin;
+import me.lynx.harrow.util.exception.CommandAlreadyRegisteredException;
+import me.lynx.harrow.util.exception.ChildCommandAlreadyRegisteredException;
+import me.lynx.harrow.command.listener.CommandListener;
 import org.jetbrains.annotations.NotNull;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractCommandService {
@@ -38,10 +35,13 @@ public abstract class AbstractCommandService {
      * @return true if registration was successful false otherwise
      */
     public boolean registerCommand(@NotNull ParentCommand command) {
+        HarrowLogger.info("Using " + getPlugin().getName() + " command service to register "
+                + command.getName() + " command.");
+
         if (pluginCommands.size() > 0) {
             try {
                 boolean doesAlreadyExists = pluginCommands.stream()
-                    .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(command.getName()));
+                    .anyMatch(cmd -> cmd.equals(command));
                 if (doesAlreadyExists) {
                     throw new CommandAlreadyRegisteredException(command.getName() + " is already registered!");
                 }
@@ -51,8 +51,6 @@ public abstract class AbstractCommandService {
             }
         }
 
-        HarrowLogger.info("Using " + getPlugin().getName() + " command service to register "
-                + command.getName() + " command.");
         command.setCommandService(this);
         command.setRegistered(true);
         command.prepareExecutor();
@@ -65,50 +63,42 @@ public abstract class AbstractCommandService {
      * so it can be used by console and players on the server. If the command is
      * already registered to this parent command it will return false;
      * @param childCommand instance of child command to register
-     * @return true if registration was successful false otherwise
+     * @return true if registered to at least one parent command
      */
     public boolean registerChildCommand(ChildCommand childCommand) {
-        AtomicBoolean registeredToAll = new AtomicBoolean(true);
+        HarrowLogger.info("Using " + getPlugin().getName() + " command service to register "
+                + childCommand.getName() + " child command.");
+
         childCommand.setCommandService(this);
 
-        if (childCommand.getParentCommands().size() < 1) return false;
-        childCommand.getParentCommands().forEach(parentCommand -> {
-            try {
-                boolean doesAlreadyExists = parentCommand.getChildCommands().stream()
-                    .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(childCommand.getName()));
-                if (doesAlreadyExists) throw new ChildCommandAlreadyRegisteredException(
-                    childCommand.getName() + "is already registered to " +
-                    parentCommand.getName() + " parent command!");
-            } catch (ChildCommandAlreadyRegisteredException e) {
-                e.printStackTrace();
-                registeredToAll.set(false);
-            }
-
-            //childCommand.process();
-            parentCommand.addChildCommand(childCommand);
+        if (childCommand.getParentQueue().size() < 1) return false;
+        childCommand.getParentQueue().keySet().forEach(parentName -> {
+            boolean registered = processChildToSingleParent(parentName, childCommand);
+            childCommand.getParentQueue().put(parentName, registered);
         });
 
-        return registeredToAll.get();
+        childCommand.setRegistered(childCommand.isRegistered());
+        return childCommand.isRegistered();
     }
 
-    public boolean addChildCommand(ParentCommand parentCommand, ChildCommand childCommand) {
-        IChildCommand child = parentCommand.getChildCommand(childCommand.getName());
-        if (child != null) return false;
+    private boolean processChildToSingleParent(String parentName, ChildCommand childCommand) {
+        ParentCommand parentCommand = getCommand(parentName, false);
+        if (parentCommand == null) return false;
+
+        try {
+            boolean alreadyExists = parentCommand.getChildCommand(childCommand.getName()) != null;
+            if (alreadyExists) throw new ChildCommandAlreadyRegisteredException(
+                childCommand.getName() + "is already registered to " +
+                parentCommand.getName() + " parent command!");
+        } catch (ChildCommandAlreadyRegisteredException e) {
+            e.printStackTrace();
+            return false;
+        }
 
         parentCommand.addChildCommand(childCommand);
+        HarrowLogger.warn("Registered " + childCommand.getName() + " to " +
+            parentCommand.getName() + " with " + getPlugin().getName());
         return true;
-    }
-
-    public Set<ParentCommand> getParentCommandsOfChild(ChildCommand childCommand) {
-        return getCommands().stream()
-            .filter(parent -> parent.getChildCommand(childCommand.getName()) != null)
-            .collect(Collectors.toSet());
-    }
-
-    public ParentCommand getParentCommandOfChild(String parentName, ChildCommand caller) {
-        ParentCommand parentCommand = getCommand(parentName, false);
-        if (parentCommand.getChildCommand(caller.getName()) != null) return parentCommand;
-        return null;
     }
 
     /**
@@ -141,7 +131,7 @@ public abstract class AbstractCommandService {
      */
     public void unregisterCommand(ParentCommand command) {
         boolean doesAlreadyExists = pluginCommands.stream()
-            .anyMatch(cmd -> cmd.getName().equalsIgnoreCase(command.getName()));
+            .anyMatch(cmd -> cmd.equals(command));
         if (!doesAlreadyExists) return;
 
         command.setRegistered(false);

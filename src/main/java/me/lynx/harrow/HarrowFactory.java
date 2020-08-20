@@ -1,6 +1,6 @@
-package com.github.liinx;
+package me.lynx.harrow;
 
-import com.github.liinx.command.Command;
+import me.lynx.harrow.command.Command;
 
 import java.util.Map;
 import java.util.WeakHashMap;

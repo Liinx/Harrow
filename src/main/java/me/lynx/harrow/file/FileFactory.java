@@ -1,6 +1,6 @@
-package com.github.liinx.file;
+package me.lynx.harrow.file;
 
-import com.github.liinx.HarrowPlugin;
+import me.lynx.harrow.HarrowPlugin;
 
 public class FileFactory {
 

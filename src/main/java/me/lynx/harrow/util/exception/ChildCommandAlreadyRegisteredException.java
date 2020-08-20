@@ -1,4 +1,4 @@
-package com.github.liinx.util.exception;
+package me.lynx.harrow.util.exception;
 
 public class ChildCommandAlreadyRegisteredException extends Exception {
 

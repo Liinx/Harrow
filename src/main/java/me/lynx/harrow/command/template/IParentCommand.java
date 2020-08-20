@@ -1,4 +1,4 @@
-package com.github.liinx.command.template;
+package me.lynx.harrow.command.template;
 
 import org.jetbrains.annotations.NotNull;
 
