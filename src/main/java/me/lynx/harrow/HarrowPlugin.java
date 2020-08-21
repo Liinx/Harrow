@@ -4,6 +4,4 @@ import me.lynx.harrow.plugin.AbstractHarrowPlugin;
 
 public class HarrowPlugin extends AbstractHarrowPlugin {
 
-
-
 }

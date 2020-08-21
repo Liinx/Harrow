@@ -43,6 +43,27 @@ public abstract class ParentCommand extends Command implements IParentCommand {
         getPlugin().getCommand(getName()).setExecutor((sender, command, label, args) -> {
             if (isRegistered()) {
                 run(sender, args);
+
+                if (args.length < 1) return true;
+                String subCommand = args[0];
+
+                Supplier<Stream<IChildCommand>> supplier = () -> getChildCommands().stream();
+                if (supplier.get().noneMatch(cmd -> cmd.getName().equalsIgnoreCase(subCommand))) return true;
+
+                IChildCommand childCommand = supplier.get()
+                    .filter(cmd -> cmd.getName().equalsIgnoreCase(subCommand))
+                    .findFirst().orElseGet(null);
+
+                String[] subArgs = new String[args.length - 1];
+
+                for (int i = 1; i < args.length; i++) {
+                    subArgs[i - 1] = args[i];
+                }
+
+                childCommand.run(sender, subArgs);
+
+
+
                 return true;
             } else {
                 sender.sendMessage("Unknown command. Type \"/help\" for help.");
