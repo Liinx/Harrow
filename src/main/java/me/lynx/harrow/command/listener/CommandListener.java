@@ -1,6 +1,5 @@
 package me.lynx.harrow.command.listener;
 
-import me.lynx.harrow.HarrowLogger;
 import me.lynx.harrow.command.AbstractCommandService;
 import me.lynx.harrow.command.ParentCommand;
 import me.lynx.harrow.command.template.IChildCommand;
@@ -33,15 +32,17 @@ public class CommandListener implements Listener {
         String noSlash = e.getMessage().substring(1);
         String[] split = noSlash.split(" ");
         String command = split[0];
+        boolean foundPrefix = command.startsWith(PREFIX);
 
         Supplier<Stream<ParentCommand>> stream = () -> commandService.getCommands().stream()
             .filter(ParentCommand::isRegistered)
-            .filter(cmd -> Utils.containsIgnoreCase(command, cmd.getAliases()));
+            .filter(cmd -> Utils.containsIgnoreCase(foundPrefix ? command.substring(PREFIX.length()) : command
+                    , cmd.getAliases()));
         if (stream.get().count() < 1) return;
 
         ParentCommand parentCommand = stream.get().findFirst().orElseGet(null);
         if (parentCommand == null) return;
-        split[0] = parentCommand.getName();
+        split[0] = foundPrefix ? PREFIX + parentCommand.getName() : parentCommand.getName();
 
         if (split.length > 1 && !split[1].equalsIgnoreCase("")) {
             String child = split[1];
@@ -71,7 +72,6 @@ public class CommandListener implements Listener {
 
         ParentCommand parentCommand = stream.get().findFirst().orElseGet(null);
         if (parentCommand == null) return;
-
         split[0] = foundPrefix ? PREFIX + parentCommand.getName() : parentCommand.getName();
 
         if (split.length > 1 && !split[1].equalsIgnoreCase("")) {
@@ -86,7 +86,6 @@ public class CommandListener implements Listener {
         }
 
         e.setCommand(Utils.processCommand(split, false));
-        HarrowLogger.warn(Utils.processCommand(split, false), commandService.getPlugin().getName());
     }
 
 }

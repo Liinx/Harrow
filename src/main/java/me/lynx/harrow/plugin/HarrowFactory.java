@@ -1,4 +1,4 @@
-package me.lynx.harrow;
+package me.lynx.harrow.plugin;
 
 import me.lynx.harrow.command.Command;
 
@@ -11,7 +11,7 @@ import java.util.WeakHashMap;
  */
 public class HarrowFactory {
 
-    private static final Map<String, HarrowPlugin> instances;
+    private static final Map<String, AbstractHarrowPlugin> instances;
     private static int counter;
 
     static {
@@ -19,7 +19,7 @@ public class HarrowFactory {
         counter = 0;
     }
 
-    protected static void addInstance(HarrowPlugin plugin) {
+    protected static void addInstance(AbstractHarrowPlugin plugin) {
         plugin.setLoadOrder(counter);
         counter++;
 
@@ -34,7 +34,7 @@ public class HarrowFactory {
      * @param cmdClass any command you created
      * @return instnace of harrow plugin
      */
-    public static HarrowPlugin getHarrowInstance(final Command cmdClass) {
+    public static AbstractHarrowPlugin getHarrowInstance(final Command cmdClass) {
         String jarName = getJarName(cmdClass);
         if (instanceExists(jarName)) {
             return instances.get(jarName);
@@ -43,7 +43,7 @@ public class HarrowFactory {
         return null;
     }
 
-    protected static void clear(HarrowPlugin plugin) {
+    protected static void clear(AbstractHarrowPlugin plugin) {
         String jarName = getJarName(plugin);
 
         if (!instanceExists(jarName)) return;

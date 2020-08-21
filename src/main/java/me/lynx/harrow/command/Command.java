@@ -1,9 +1,9 @@
 package me.lynx.harrow.command;
 
-import me.lynx.harrow.HarrowPlugin;
+import me.lynx.harrow.plugin.AbstractHarrowPlugin;
 import me.lynx.harrow.command.template.IBaseCommand;
 import me.lynx.harrow.command.template.IParentCommand;
-import me.lynx.harrow.HarrowFactory;
+import me.lynx.harrow.plugin.HarrowFactory;
 
 import java.util.*;
 
@@ -67,7 +67,7 @@ public abstract class Command implements IBaseCommand {
     }
 
     @Override
-    public HarrowPlugin getPlugin() {
+    public AbstractHarrowPlugin getPlugin() {
         return commandService.getPlugin();
     }
 

@@ -1,5 +1,6 @@
-package me.lynx.harrow;
+package me.lynx.harrow.plugin;
 
+import me.lynx.harrow.HarrowLogger;
 import me.lynx.harrow.command.AbstractCommandService;
 
 /**
@@ -14,8 +15,9 @@ public class CommandService extends AbstractCommandService {
      *
      * @param plugin Plugin class
      */
-    protected CommandService(HarrowPlugin plugin) {
+    protected CommandService(AbstractHarrowPlugin plugin) {
         super(plugin);
+        HarrowLogger.info("Command service has been initialized.", plugin.getName());
     }
 
 }

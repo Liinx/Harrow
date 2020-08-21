@@ -1,7 +1,7 @@
 package me.lynx.harrow.command.template;
 
-import me.lynx.harrow.CommandService;
-import me.lynx.harrow.HarrowPlugin;
+import me.lynx.harrow.plugin.CommandService;
+import me.lynx.harrow.plugin.AbstractHarrowPlugin;
 import me.lynx.harrow.command.AbstractCommandService;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -67,6 +67,6 @@ public interface IBaseCommand {
      *  exact same class it will get the first plugin that loads that class (Command).
      * @return plugin instance
      */
-    HarrowPlugin getPlugin();
+    AbstractHarrowPlugin getPlugin();
 
 }

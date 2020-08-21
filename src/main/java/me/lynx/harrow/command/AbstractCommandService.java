@@ -1,7 +1,6 @@
 package me.lynx.harrow.command;
 
-import me.lynx.harrow.HarrowLogger;
-import me.lynx.harrow.HarrowPlugin;
+import me.lynx.harrow.plugin.AbstractHarrowPlugin;
 import me.lynx.harrow.util.exception.CommandAlreadyRegisteredException;
 import me.lynx.harrow.util.exception.ChildCommandAlreadyRegisteredException;
 import me.lynx.harrow.command.listener.CommandListener;
@@ -12,7 +11,7 @@ import java.util.stream.Stream;
 
 public abstract class AbstractCommandService {
 
-    private final HarrowPlugin plugin;
+    private final AbstractHarrowPlugin plugin;
     private final Set<ParentCommand> pluginCommands;
 
     /**
@@ -20,7 +19,7 @@ public abstract class AbstractCommandService {
      * it to the provided plugin.
      * @param plugin Plugin class
      */
-    protected AbstractCommandService(HarrowPlugin plugin) {
+    protected AbstractCommandService(AbstractHarrowPlugin plugin) {
         this.plugin = plugin;
         pluginCommands = new HashSet<>();
 
@@ -35,9 +34,6 @@ public abstract class AbstractCommandService {
      * @return true if registration was successful false otherwise
      */
     public boolean registerCommand(@NotNull ParentCommand command) {
-        HarrowLogger.info("Using " + getPlugin().getName() + " command service to register "
-                + command.getName() + " command.");
-
         if (pluginCommands.size() > 0) {
             try {
                 boolean doesAlreadyExists = pluginCommands.stream()
@@ -66,9 +62,6 @@ public abstract class AbstractCommandService {
      * @return true if registered to at least one parent command
      */
     public boolean registerChildCommand(ChildCommand childCommand) {
-        HarrowLogger.info("Using " + getPlugin().getName() + " command service to register "
-                + childCommand.getName() + " child command.");
-
         childCommand.setCommandService(this);
 
         if (childCommand.getParentQueue().size() < 1) return false;
@@ -96,8 +89,6 @@ public abstract class AbstractCommandService {
         }
 
         parentCommand.addChildCommand(childCommand);
-        HarrowLogger.warn("Registered " + childCommand.getName() + " to " +
-            parentCommand.getName() + " with " + getPlugin().getName());
         return true;
     }
 
@@ -141,7 +132,7 @@ public abstract class AbstractCommandService {
      * Gets the plugin its bound to.
      * @return the plugin
      */
-    public HarrowPlugin getPlugin() {
+    public AbstractHarrowPlugin getPlugin() {
         return plugin;
     }
 

@@ -1,17 +1,17 @@
 package me.lynx.harrow.file;
 
-import me.lynx.harrow.HarrowPlugin;
+import me.lynx.harrow.plugin.AbstractHarrowPlugin;
 
-public class FileFactory {
+public abstract class FileFactory {
 
-    private HarrowPlugin plugin;
+    private AbstractHarrowPlugin plugin;
 
     /**
      * Creates file factory and binds
      * it to the provided plugin.
      * @param plugin Plugin class
      */
-    public FileFactory(HarrowPlugin plugin) {
+    public FileFactory(AbstractHarrowPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -38,7 +38,7 @@ public class FileFactory {
      * Gets the plugin its bound to.
      * @return the plugin
      */
-    public HarrowPlugin getPlugin() {
+    public AbstractHarrowPlugin getPlugin() {
         return plugin;
     }
 
