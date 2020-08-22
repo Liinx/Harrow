@@ -30,8 +30,9 @@ public abstract class ChildCommand extends Command implements IChildCommand {
     }
 
     public boolean isRegistered(String parentName) {
-        if (parentQueue.get(parentName) == null) return false;
-        return parentQueue.get(parentName);
+        if (parentQueue.get(parentName.toLowerCase()) == null) return false;
+
+        return parentQueue.get(parentName.toLowerCase());
     }
 
     @Override
@@ -63,16 +64,16 @@ public abstract class ChildCommand extends Command implements IChildCommand {
 
     @Override
     public void addParentCommand(String name) {
-        if (parentQueue.containsKey(name)) return;
+        if (parentQueue.containsKey(name.toLowerCase())) return;
 
-        parentQueue.put(name, false);
+        parentQueue.put(name.toLowerCase(), false);
     }
 
     @Override
     public void addParentCommand(ParentCommand parentCommand) {
-        if (parentQueue.containsKey(parentCommand.getName())) return;
+        if (parentQueue.containsKey(parentCommand.getName().toLowerCase())) return;
 
-        parentQueue.put(parentCommand.getName(), false);
+        parentQueue.put(parentCommand.getName().toLowerCase(), false);
     }
 
     @Override

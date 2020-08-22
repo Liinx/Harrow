@@ -67,7 +67,7 @@ public abstract class AbstractCommandService {
         if (childCommand.getParentQueue().size() < 1) return false;
         childCommand.getParentQueue().keySet().forEach(parentName -> {
             boolean registered = processChildToSingleParent(parentName, childCommand);
-            childCommand.getParentQueue().put(parentName, registered);
+            childCommand.getParentQueue().put(parentName.toLowerCase(), registered);
         });
 
         childCommand.setRegistered(childCommand.isRegistered());

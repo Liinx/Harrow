@@ -26,6 +26,7 @@ public abstract class AbstractHarrowPlugin extends JavaPlugin {
      */
     public void enableHarrow(AbstractHarrowPlugin plugin) {
         this.instance = plugin;
+        CommandLoader.collect(instance);
 
         HarrowLogger.info("Enabling " + instance.getName() + " using Harrow with "
                 + getPriority().getName() + " priority.");
@@ -46,6 +47,7 @@ public abstract class AbstractHarrowPlugin extends JavaPlugin {
     public void enableHarrow(AbstractHarrowPlugin plugin, CallPriority priority) {
         this.instance = plugin;
         this.priority = priority;
+        CommandLoader.collect(instance);
 
         HarrowLogger.info("Enabling " + instance.getName() + " using Harrow with "
                 + getPriority().getName() + " priority.");
