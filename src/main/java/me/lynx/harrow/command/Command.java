@@ -4,6 +4,7 @@ import me.lynx.harrow.plugin.AbstractHarrowPlugin;
 import me.lynx.harrow.command.template.IBaseCommand;
 import me.lynx.harrow.command.template.IParentCommand;
 import me.lynx.harrow.plugin.HarrowFactory;
+import me.lynx.harrow.util.exception.InvalidHarrowPluginException;
 
 import java.util.*;
 
@@ -20,7 +21,12 @@ public abstract class Command implements IBaseCommand {
         this.name = name;
         aliases = new HashSet<>();
         registered = false;
-        commandService = HarrowFactory.getHarrowInstance(this).getCommandService();
+
+        try {
+            commandService = HarrowFactory.getHarrowInstance(this).getCommandService();
+        } catch (InvalidHarrowPluginException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void setCommandService(AbstractCommandService commandService) {
