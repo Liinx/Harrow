@@ -1,6 +1,5 @@
 package me.lynx.harrow.plugin;
 
-import me.lynx.harrow.HarrowLogger;
 import me.lynx.harrow.HarrowPlugin;
 import me.lynx.harrow.util.command.CommandContainer;
 import me.lynx.harrow.util.command.PluginContainer;
@@ -36,17 +35,13 @@ public class CommandLoader {
     }
 
     private static List<PluginContainer> getConflictingContainers(String command, AbstractHarrowPlugin instance) {
-        HarrowLogger.info("Scanning for " + command + "...", instance.getName());
-
         List<PluginContainer> detected = new ArrayList<>();
 
         for (PluginContainer container : containers) {
             String pluginName = container.getPluginName();
             List<CommandContainer> commandContainers = container.getCommandContainer();
-
             if (pluginName.equalsIgnoreCase(instance.getName())) continue;
 
-            //HarrowLogger.severe("Checking for " + pluginName + " plugin.", instance.getName());
             boolean foundHarrowAllias = false;
             boolean nameMatches = false;
             boolean aliasMatches = false;
@@ -77,7 +72,6 @@ public class CommandLoader {
             }
 
             if (nameMatches || aliasMatches || foundHarrowAllias) detected.add(container);
-
         }
 
         return detected;
@@ -86,7 +80,6 @@ public class CommandLoader {
     protected static void collect(JavaPlugin instance) {
         Bukkit.getScheduler().runTaskLater(instance, () -> {
             if (!collected) {
-                HarrowLogger.info("Gathering commands from other plugins...");
                 Plugin[] plugins = Bukkit.getServer().getPluginManager().getPlugins();
 
                 for (Plugin plugin : plugins) {

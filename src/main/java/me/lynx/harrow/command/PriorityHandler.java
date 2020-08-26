@@ -1,13 +1,11 @@
 package me.lynx.harrow.command;
 
-import me.lynx.harrow.HarrowLogger;
 import me.lynx.harrow.HarrowPlugin;
 import me.lynx.harrow.plugin.AbstractHarrowPlugin;
 import me.lynx.harrow.plugin.CommandLoader;
 import me.lynx.harrow.util.CallPriority;
 import me.lynx.harrow.util.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
@@ -34,8 +32,7 @@ public class PriorityHandler {
     public static Map<String,Boolean> getPriorityInstruction(String command, AbstractHarrowPlugin instance) {
         Plugin[] allPl = Bukkit.getPluginManager().getPlugins();
         List<String> justConflictNames = CommandLoader.getConflictingNames(command, instance);
-
-        justConflictNames.forEach(name -> HarrowLogger.info(name + " has a conflict with this command."));
+        justConflictNames.add(instance.getName());
 
         boolean harrowPluginsOnly = true;
         boolean hasHarrowConflict = false;
@@ -49,11 +46,6 @@ public class PriorityHandler {
                 if (plugin instanceof HarrowPlugin) {
                     hasHarrowConflict = true;
                     HarrowPlugin harrowPlugin = (HarrowPlugin) plugin;
-
-                    //missing cycle owner in priority compare so not for sure known who has highest.
-
-                    HarrowLogger.info("Comparing " + harrowPlugin.getName() + " " +
-                            harrowPlugin.getPriority().getName() + " " + harrowPlugin.getLoadOrder());
 
                     AbstractHarrowPlugin.PriorityComparator comparator = new
                             AbstractHarrowPlugin.PriorityComparator();
@@ -81,8 +73,6 @@ public class PriorityHandler {
     }
 
     public static void finish() {
-        HarrowLogger.info("Handling finished for " + ChatColor.GOLD + originalInput);
-
         notFirstCycle = false;
         originalInput = null;
         currentCycle = 0;
@@ -92,7 +82,6 @@ public class PriorityHandler {
 
     public static void nextCycle(){
         currentCycle++;
-        HarrowLogger.info("Current cycle " + currentCycle + "/" + totalCycles);
     }
 
     public static void setNotFirstCycle(boolean notFirstCycle) {
@@ -100,7 +89,6 @@ public class PriorityHandler {
     }
 
     public static void setOriginalInput(String originalInput) {
-        HarrowLogger.info("Handling started for " + ChatColor.GOLD + originalInput);
         PriorityHandler.originalInput = originalInput;
     }
 
@@ -109,7 +97,6 @@ public class PriorityHandler {
     }
 
     public static void setHighestPriorityPlugin(AbstractHarrowPlugin highestPriorityPlugin) {
-        HarrowLogger.info("New plugin with highest priority is " + ChatColor.GOLD + highestPriorityPlugin.getName());
         PriorityHandler.highestPriorityPlugin = highestPriorityPlugin;
     }
 

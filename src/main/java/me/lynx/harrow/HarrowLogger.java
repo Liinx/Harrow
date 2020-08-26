@@ -28,7 +28,7 @@ public class HarrowLogger {
      * @param message message to log
      */
     public static void info(String message) {
-        SENDER.sendMessage(NAME + replacePlaceholder("INFO", null) + ChatColor.WHITE + message);
+        SENDER.sendMessage(NAME + replacePlaceholder("INFO", null) + ChatColor.GRAY + message);
     }
 
     /**
@@ -53,7 +53,7 @@ public class HarrowLogger {
      * @param pluginName name of the plugin
      */
     public static void info(String message, String pluginName) {
-        SENDER.sendMessage(NAME + replacePlaceholder("INFO", pluginName) + ChatColor.WHITE + message);
+        SENDER.sendMessage(NAME + replacePlaceholder("INFO", pluginName) + ChatColor.GRAY + message);
     }
 
     /**

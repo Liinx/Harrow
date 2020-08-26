@@ -58,9 +58,7 @@ public abstract class AbstractHarrowPlugin extends JavaPlugin {
         HarrowFactory.addInstance(instance);
     }
 
-    //not working prob test it first
-    @Override
-    public void onDisable() {
+    public void disableHarrow() {
         HarrowFactory.clear(instance);
     }
 
