@@ -1,7 +1,6 @@
 package me.lynx.harrow.command;
 
 import me.lynx.harrow.HarrowPlugin;
-import me.lynx.harrow.command.listener.BaseParentCommand;
 import me.lynx.harrow.command.listener.CommandListener;
 import me.lynx.harrow.util.HarrowLogger;
 

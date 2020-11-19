@@ -1,7 +1,5 @@
-package me.lynx.harrow.command.listener;
+package me.lynx.harrow.command;
 
-import me.lynx.harrow.command.BaseChildCommand;
-import me.lynx.harrow.command.BaseCommand;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;

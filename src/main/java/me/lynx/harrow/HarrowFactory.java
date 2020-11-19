@@ -11,7 +11,7 @@ import java.util.Map;
  * Represents a container holding all of the instances of
  * plugins that are using harrow lib on this server.
  */
-public class HarrowFactory {
+public final class HarrowFactory {
 
     private static final Map<String,HarrowPlugin> instances;
     private static int counter;
@@ -20,6 +20,8 @@ public class HarrowFactory {
         instances = new HashMap<>();
         counter = 0;
     }
+
+    private HarrowFactory() {}
 
     /**
      * Attempts to add harrow instance to the factory, if the instance

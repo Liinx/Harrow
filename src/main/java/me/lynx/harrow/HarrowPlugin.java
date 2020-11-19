@@ -21,6 +21,8 @@ public class HarrowPlugin extends JavaPlugin {
     private CommandService commandService;
     private FileService fileService;
 
+    private HarrowPlugin() {}
+
     /**
      * This method goes in your {@link #onEnable()} and should be
      * called before anything else.
