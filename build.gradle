@@ -14,17 +14,23 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:15.0'
 }
 
 def dest = projectDir.getParentFile().getAbsolutePath() + "/ParkourMaker/libs/"
+def dest2 = projectDir.getParentFile().getAbsolutePath() + "/HarrowTester/libs/"
 
 jar {
     doLast {
         ant.copy file: "${buildDir}/libs/Harrow-1.0.4-SNAPSHOT.jar",
             todir: "${dest}",
             overwrite: true
+    }
+    doLast {
+        ant.copy file: "${buildDir}/libs/Harrow-1.0.4-SNAPSHOT.jar",
+                todir: "${dest2}",
+                overwrite: true
     }
 }
 
