@@ -1,4 +1,5 @@
 # Harrow
+![GitHub](https://img.shields.io/github/license/liinx/harrow)  
 
 Library containing tools that can be used to simplyfy and increse the speed at which you make plugins for Spigot Minecraft servers.
 
