@@ -15,13 +15,15 @@ import java.util.Comparator;
  */
 public class HarrowPlugin extends JavaPlugin {
 
+
+
     private CallPriority priority;
     private int loadOrder;
     private HarrowPlugin plugin;
     private CommandService commandService;
     private FileService fileService;
 
-    private HarrowPlugin() {}
+    protected HarrowPlugin() {}
 
     /**
      * This method goes in your {@link #onEnable()} and should be
@@ -31,7 +33,6 @@ public class HarrowPlugin extends JavaPlugin {
     public void enableHarrow(HarrowPlugin plugin) {
         this.plugin = plugin;
         priority = CallPriority.NORMAL;
-
 
         if (HarrowFactory.addInstance(plugin)) {
             HarrowLogger.info("Enabling " + plugin.getName() + " using Harrow with "
@@ -52,7 +53,6 @@ public class HarrowPlugin extends JavaPlugin {
     public void enableHarrow(HarrowPlugin plugin, CallPriority priority) {
         this.plugin = plugin;
         this.priority = priority;
-        //CommandLoader.collect(instance);
 
         if (HarrowFactory.addInstance(plugin)) {
             HarrowLogger.info("Enabling " + plugin.getName() + " using Harrow with "
@@ -94,7 +94,7 @@ public class HarrowPlugin extends JavaPlugin {
 
     final public static class PriorityComparator implements Comparator<HarrowPlugin> {
 
-        private PriorityComparator() {}
+        public PriorityComparator() {}
 
         @Override
         public int compare(HarrowPlugin plugin1, HarrowPlugin plugin2) {

@@ -1,7 +1,11 @@
 package me.lynx.harrow.command.listener;
 
-import me.lynx.harrow.command.CommandService;
+import me.lynx.harrow.command.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.server.ServerCommandEvent;
 
 public final class CommandListener implements Listener {
 
@@ -16,5 +20,23 @@ public final class CommandListener implements Listener {
             .getPluginManager()
             .registerEvents(this, commandService.getPlugin());
     }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
+    private void aliasForCommandUsed(PlayerCommandPreprocessEvent e) {
+
+
+
+
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
+    private void aliasForCommandUsed(ServerCommandEvent e) {
+
+
+
+
+    }
+
+
 
 }

@@ -53,22 +53,22 @@ public final class HarrowFactory {
      * who loads that class first.
      * @param cmdClass any command you created
      * @return instance of harrow plugin
-     * @throws InvalidHarrowPluginException if Harrow is not properly implemented in the plugin.
      */
-    public static HarrowPlugin getHarrowInstance(final Object cmdClass)
-            throws InvalidHarrowPluginException {
+    public static HarrowPlugin getHarrowInstance(final Object cmdClass) {
         String jarName = getJarName(cmdClass);
-        HarrowLogger.severe(jarName + " in get instance");
-
         InvalidHarrowPluginException throwable = new InvalidHarrowPluginException(jarName +
                 " is not using Harrow as intended, recheck the guide before trying again.");
 
         if (instanceExists(jarName)) {
-            if (instances.get(jarName) == null) throw throwable;
+            if (instances.get(jarName) == null) {
+                try { throw throwable;
+                } catch (InvalidHarrowPluginException e) {
+                    e.printStackTrace();
+                }
+            }
             return instances.get(jarName);
         }
 
-        if (instances.get(jarName) == null) throw throwable;
         return null;
     }
 

@@ -4,13 +4,10 @@ import me.lynx.harrow.HarrowPlugin;
 import me.lynx.harrow.command.listener.CommandListener;
 import me.lynx.harrow.util.HarrowLogger;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public final class CommandService {
 
     private final HarrowPlugin plugin;
-    private final Set<BaseParentCommand> pluginCommands;
+
 
     /**
      * Creates command service and binds
@@ -19,7 +16,7 @@ public final class CommandService {
      */
     public CommandService(HarrowPlugin plugin) {
         this.plugin = plugin;
-        pluginCommands = new HashSet<>();
+
 
         new CommandListener(this);
         HarrowLogger.info("Command service has been initialized.", plugin.getName());
