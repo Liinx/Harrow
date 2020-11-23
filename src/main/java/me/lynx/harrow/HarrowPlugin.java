@@ -15,8 +15,6 @@ import java.util.Comparator;
  */
 public class HarrowPlugin extends JavaPlugin {
 
-
-
     private CallPriority priority;
     private int loadOrder;
     private HarrowPlugin plugin;
